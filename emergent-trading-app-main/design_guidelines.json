@@ -1,0 +1,70 @@
+{
+  "project_name": "Quant Analysis Dashboard",
+  "domain": "Finance / Quantitative Market Analysis",
+  "theme": "Dark",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) - Terminal/Control Room Variant",
+  "emotional_tone": "Professional, Authoritative, Objective, Data-Dense",
+  "typography": {
+    "primary_font": "IBM Plex Sans",
+    "data_font": "JetBrains Mono",
+    "forbidden_fonts": [
+      "Inter",
+      "Space Grotesk",
+      "Roboto",
+      "Open Sans",
+      "Syne"
+    ],
+    "hierarchy": {
+      "h1": "text-2xl sm:text-3xl tracking-tight font-medium text-white",
+      "h2": "text-xl sm:text-2xl tracking-tight font-medium text-white",
+      "h3": "text-lg font-medium text-white",
+      "body": "text-sm leading-relaxed text-neutral-400",
+      "data_large": "text-3xl sm:text-4xl font-mono tracking-tighter text-white",
+      "data_medium": "text-xl sm:text-2xl font-mono tracking-tight text-white",
+      "labels": "text-xs font-mono uppercase tracking-[0.2em] text-neutral-500"
+    }
+  },
+  "colors": {
+    "background": "#050505",
+    "surface": "#0F0F0F",
+    "border": "#222222",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#888888",
+    "accent": "#00E5C0",
+    "danger": "#FF3B30",
+    "success": "#00E5C0",
+    "chart_grid": "#1A1A1A",
+    "chart_stroke": "#00E5C0",
+    "glass_bg": "rgba(10, 10, 10, 0.8)",
+    "glass_border": "rgba(255, 255, 255, 0.1)"
+  },
+  "layout": {
+    "strategy": "Control Room Grid",
+    "spacing_system": "Dense and compact. p-4 or p-6 for widgets.",
+    "grid_configuration": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4",
+    "surface_treatment": "Grid Borders: expose the skeleton. border-collapse style layout. Use sharp edges (rounded-none or max rounded-sm). No soft shadows, rely on 1px borders."
+  },
+  "components": {
+    "search_bar": "Minimalist input. No generic rounded backgrounds. Use a transparent background with a solid 1px bottom border (`border-b border-border`). Focus state should illuminate the bottom border with the accent color (`focus:border-accent focus:ring-0`).",
+    "time_selector": "Segmented control with sharp edges (`rounded-none`). Inactive items are muted text (`text-neutral-500`). Active item gets an accent underline or a subtle surface background with bright accent text (`text-accent bg-surface`).",
+    "metric_cards": "Cardless or flat geometric containers (`border border-[#222222] bg-[#0F0F0F] rounded-none p-4 or p-6`). Large monospace data values. Overline label placed above the value.",
+    "chart": "Recharts LineChart. Hide outer axes lines if possible, keep a subtle horizontal grid (`strokeDasharray=\"3 3\" stroke=\"#1A1A1A\"`). The line itself must use the accent color (`#00E5C0`) with a solid stroke. Tooltip must be an optical clarity glassmorphic box (`backdrop-blur-md bg-black/80 border border-white/10`).",
+    "loading_states": "Sharp pulsating borders or minimalist ASCII loaders. Avoid standard generic spinners. Display skeleton rectangles with a very dark subtle pulse (`animate-pulse bg-[#1A1A1A]`).",
+    "error_states": "Use red danger text (`#FF3B30`) rendered in monospace font, acting like a terminal error output."
+  },
+  "motion": {
+    "transitions": "Minimal and precise. Use `transition-all duration-150 ease-out`.",
+    "hover": "Interactive text shifts to accent color (`hover:text-accent`). Widgets might get a subtle border highlight (`hover:border-white/30`)."
+  },
+  "testing": {
+    "attributes": "CRITICAL: All interactive elements, including search inputs, selector buttons, metric cards, and error boundaries, MUST use a `data-testid` attribute (e.g., `data-testid='ticker-search-input'`, `data-testid='time-selector-1y'`)."
+  },
+  "image_urls": [],
+  "instructions_to_main_agent": [
+    "DO NOT use standard Shadcn card components with generic rounded corners and drop shadows. Override these styles to `rounded-none`, `shadow-none`, and `bg-[#0F0F0F]`.",
+    "Implement the layout as a 'Control Room Grid', meaning every widget must stretch to fill its grid area (`h-full`), maintaining visual density and alignment.",
+    "For the UI, pair IBM Plex Sans (or Inter if unavailable, though IBM Plex is preferred) for headings/labels, with JetBrains Mono for all numeric data. This gives the application a professional trading terminal aesthetic.",
+    "Ensure Recharts components are responsive and match the exact color tokens provided in the palette (backgrounds must be completely transparent to inherit the parent widget's color).",
+    "Strictly adhere to the dark mode requirement with the requested 'verde acqua' (Teal/Aqua: #00E5C0) only used functionally (e.g., chart lines, active states, key metric highlights)."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "rules": [
+    {
+      "id": "r1",
+      "ticker": "SPY",
+      "model": "sheaf",
+      "metric": "obstruction_index",
+      "threshold": 0.65,
+      "direction": "above",
+      "cooldown_hours": 24,
+      "enabled": true,
+      "last_fired": null
+    },
+    {
+      "id": "r2",
+      "ticker": "SPY",
+      "model": "quantum",
+      "metric": "n_signal_ratio",
+      "threshold": 0.35,
+      "direction": "above",
+      "cooldown_hours": 24,
+      "enabled": true,
+      "last_fired": null
+    },
+    {
+      "id": "r3",
+      "ticker": "SPY",
+      "model": "affine",
+      "metric": "smoothness_score",
+      "threshold": 0.15,
+      "direction": "below",
+      "cooldown_hours": 48,
+      "enabled": true,
+      "last_fired": null
+    },
+    {
+      "id": "_auto_AAPL",
+      "ticker": "AAPL",
+      "model": "_system",
+      "metric": "auto_threshold",
+      "threshold": 0,
+      "direction": "above",
+      "cooldown_hours": 6,
+      "enabled": false,
+      "last_fired": "2026-06-17T17:53:55"
+    }
+  ],
+  "check_interval_hours": 4
+}

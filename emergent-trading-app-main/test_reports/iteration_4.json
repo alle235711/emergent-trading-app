@@ -1,0 +1,32 @@
+{
+  "summary": "Frontend-only iteration 4 review for QuantDesk Trading UI modules. Exhaustive Playwright run of 44 assertions covering Header (BrokerStatus + ModeToggle + nav), OrderTicket across ETF/Crypto/Forex/Stocks, REAL vs PAPER submit behaviour, PAPER BUY/SELL state mutation on AAPL (25→26→25), insufficient-balance guard on BTC-USD×100, /portfolio public route + 4 summary tiles + 5 seed positions + Capital Trajectory recharts (with 3 dashed projection lines), reset simulation, and localStorage persistence of mode + sim state. 44/44 assertions PASSED.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Console (any chart)", "issues": ["Recharts emits repeated 'width(-1) and height(-1) of chart should be greater than 0' warnings on the dashboard tabs that are not currently visible (hidden via display:none). Cosmetic only — does NOT break rendering. Could be fixed by lazy-mounting tab content or giving the ResponsiveContainer an explicit aspect/minHeight."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "(Optional) Silence the recharts 'width(-1) height(-1)' console warnings emitted by non-active tabs — lazy-mount tab content or set an explicit minHeight on ResponsiveContainer."
+  ],
+  "critical_code_review_comments": [
+    "TradingContext.submitOrder uses simulatedBalance from closure — fine in current single-click flow but if a user double-clicks Submit rapidly the second invocation may read a stale balance. Consider switching the cash update to a functional setSimulatedBalance(prev => ...) for safety.",
+    "Capital snapshot is appended as flat (lastEquity) on every trade — the curve will look static between price refreshes. Acceptable per spec but worth documenting in UI copy or computing realized P&L on SELL.",
+    "OrderTicket has no max bound on Quantity input; users can paste scientific notation and end up with extreme estimated cost displays. UX-only nit.",
+    "Mode toggle persists to localStorage with key 'quantdesk.trading.mode' — verified working. Good namespacing."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (not tested per request)", "frontend": "100% (44/44)"},
+  "test_credentials": "not used — Portfolio is public, no auth flows tested this iteration",
+  "seed_data_creation": "Used built-in seed positions (AAPL/SWDA.MI/BTC-USD/EURUSD=X/NVDA) restored via 'Reset simulation' button. localStorage cleared before run.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "main_agent_can_self_test": false,
+  "context_for_next_testing_agent": "All iteration-4 trading-UI acceptance criteria pass cleanly. Header data-testids: broker-api-status, broker-api-status-label, mode-toggle-real, mode-toggle-paper, nav-markets, nav-portfolio. OrderTicket test ids are prefixed per asset (etf-/crypto-/forex-/stocks-) and asset tabs use data-testid='asset-tab-{class}'. To get a clean baseline run `await page.evaluate(\"() => localStorage.clear()\")` then reload OR click portfolio-reset-btn. AAPL seed = 25 shares @ €178.40 — paper BUY 1 brings it to 26 @ ~€182.99 (lastPrice 297.84 from live yfinance call). The recharts console warnings are non-blocking."
+}
